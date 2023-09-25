@@ -55,7 +55,7 @@ class NumberedSignifier < (Asciidoctor::Converter.for 'pdf')
         if (like = section.numbered)
             if (sectname = section.sectname) == 'appendix'
             section.numeral = @document.counter 'appendix-number', 'A'
-            section.caption = (caption = @document.attributes['appendix-caption']) ? %(#{section.numeral} #{caption}: ) : %(#{section.numeral}. )
+            section.caption = (caption = @document.attributes['appendix-caption']) ? %(#{section.numeral}. #{caption}: ) : %(#{section.numeral}. )
             # NOTE currently chapters in a book doctype are sequential even for multi-part books (see #979)
             elsif sectname == 'chapter' || like == :chapter
             section.numeral = (@document.counter 'chapter-number', 1).to_s
