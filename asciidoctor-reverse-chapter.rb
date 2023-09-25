@@ -110,15 +110,15 @@ class NumberedSignifier < (Asciidoctor::Converter.for 'pdf')
                 quoted_title = sub_placeholder (sub_quotes @document.compat_mode ? %q(``%s'') : '"`%s`"'), title
               end
               if (signifier = @document.attributes[%(#{type}-refsig)])
-                %(#{sectnum '.', ','} #{signifier} #{quoted_title})
+                %(#{sectnum} #{signifier} #{quoted_title})
               else
-                %(#{sectnum '.', ','} #{quoted_title})
+                %(#{sectnum} #{quoted_title})
               end
             when 'short'
               if (signifier = @document.attributes[%(#{@sectname}-refsig)])
-                %(#{sectnum '.', ''} #{signifier})
+                %(#{sectnum} #{signifier})
               else
-                sectnum '.', ''
+                sectnum
               end
             else # 'basic'
               (type = @sectname) == 'chapter' || type == 'appendix' ? (sub_placeholder (sub_quotes '_%s_'), title) : title
