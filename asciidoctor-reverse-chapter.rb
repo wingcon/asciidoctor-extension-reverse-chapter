@@ -77,7 +77,7 @@ class NumberedSignifier < (Asciidoctor::Converter.for 'pdf')
               if @numeral && (caption_attr_name = Asciidoctor::CAPTION_ATTRIBUTE_NAMES[@context]) && (prefix = @document.attributes[caption_attr_name])
                 %(#{@numeral} #{prefix}, #{quoted_title})
               else
-                %(#{@caption.chomp '. '}, #{quoted_title})
+                %(#{@caption.chomp '. '} #{quoted_title})
               end
             when 'short'
               if @numeral && (caption_attr_name = Asciidoctor::CAPTION_ATTRIBUTE_NAMES[@context]) && (prefix = @document.attributes[caption_attr_name])
