@@ -43,28 +43,28 @@ class NumberedSignifier < (Asciidoctor::Converter.for 'pdf')
 
     Asciidoctor::AbstractBlock.prepend (Module.new do
         def assign_caption value, caption_context = @context
-        unless @caption || !@title || (@caption = value || @document.attributes['caption']) # rubocop:disable Style/GuardClause
-            if (attr_name = Asciidoctor::CAPTION_ATTRIBUTE_NAMES[caption_context]) && (prefix = @document.attributes[attr_name])
-            @caption = %(#{@numeral = @document.increment_and_store_counter %(#{caption_context}-number), self}. #{prefix}: )
-            nil
-            end
-        end
+          unless @caption || !@title || (@caption = value || @document.attributes['caption']) # rubocop:disable Style/GuardClause
+              if (attr_name = Asciidoctor::CAPTION_ATTRIBUTE_NAMES[caption_context]) && (prefix = @document.attributes[attr_name])
+                @caption = %(#{@numeral = @document.increment_and_store_counter %(#{caption_context}-number), self}. #{prefix}: )
+                nil
+              end
+          end
         end
         def assign_numeral section
-        @next_section_index = (section.index = @next_section_index) + 1
-        if (like = section.numbered)
-            if (sectname = section.sectname) == 'appendix'
-            section.numeral = @document.counter 'appendix-number', 'A'
-            section.caption = (caption = @document.attributes['appendix-caption']) ? %(#{section.numeral}. #{caption}: ) : %(#{section.numeral}. )
-            # NOTE currently chapters in a book doctype are sequential even for multi-part books (see #979)
-            elsif sectname == 'chapter' || like == :chapter
-            section.numeral = (@document.counter 'chapter-number', 1).to_s
-            else
-            section.numeral = sectname == 'part' ? (Helpers.int_to_roman @next_section_ordinal) : @next_section_ordinal.to_s
-            @next_section_ordinal += 1
-            end
-        end
-        nil
+          @next_section_index = (section.index = @next_section_index) + 1
+          if (like = section.numbered)
+              if (sectname = section.sectname) == 'appendix'
+                section.numeral = @document.counter 'appendix-number', 'A'
+                section.caption = (caption = @document.attributes['appendix-caption']) ? %(#{section.numeral}. #{caption}: ) : %(#{section.numeral}. )
+                # NOTE currently chapters in a book doctype are sequential even for multi-part books (see #979)
+              elsif sectname == 'chapter' || like == :chapter
+                section.numeral = (@document.counter 'chapter-number', 1).to_s
+              else
+                section.numeral = sectname == 'part' ? (Helpers.int_to_roman @next_section_ordinal) : @next_section_ordinal.to_s
+                @next_section_ordinal += 1
+              end
+          end
+          nil
         end
     end
     )
