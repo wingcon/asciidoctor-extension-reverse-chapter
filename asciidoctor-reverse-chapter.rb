@@ -75,7 +75,7 @@ class NumberedSignifier < (Asciidoctor::Converter.for 'pdf')
             when 'full'
               quoted_title = sub_placeholder (sub_quotes @document.compat_mode ? %q(``%s'') : '"`%s`"'), title
               if @numeral && (caption_attr_name = Asciidoctor::CAPTION_ATTRIBUTE_NAMES[@context]) && (prefix = @document.attributes[caption_attr_name])
-                %(#{@numeral} #{prefix}, #{quoted_title})
+                %(#{@numeral} #{prefix}: #{quoted_title})
               else
                 %(#{@caption.chomp '. '} #{quoted_title})
               end
